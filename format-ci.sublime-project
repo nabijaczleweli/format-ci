@@ -3,7 +3,7 @@
 	[
 		{
 			"working_dir": "$project_path",
-			"shell_cmd": "cargo build --color always && python format-ci.py",
+			"shell_cmd": "cargo build --color always && python server",
 			"name": "Build & run format-ci",
 
 			"target": "ansi_color_build",
@@ -20,7 +20,8 @@
 		{
 			"follow_symlinks": true,
 			"name": "Server source",
-			"path": "*.py"
+			"path": "server",
+			"folder_exclude_patterns": ["__pycache__"]
 		},
 		{
 			"follow_symlinks": true,

@@ -7,3 +7,6 @@
 !*.sublime-project
 !src
 !src/**
+!server
+!server/**
+server/__pycache__
