@@ -3,10 +3,7 @@
 !.travis.yml
 !LICENSE
 !README.md
-!Cargo.toml
+!requirements.txt
 !*.sublime-project
-!src
-!src/**
-!server
-!server/**
-server/__pycache__
+!format-ci
+!format-ci/**

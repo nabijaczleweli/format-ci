@@ -4,10 +4,7 @@
 		{
 			"working_dir": "$project_path",
 			"shell_cmd": "cargo build --color always && python server",
-			"name": "Build & run format-ci",
-
-			"target": "ansi_color_build",
-			"syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+			"name": "Run format-ci"
 		}
 	],
 	"folders":
@@ -15,21 +12,8 @@
 		{
 			"follow_symlinks": true,
 			"name": "CI source",
-			"path": "src"
-		},
-		{
-			"follow_symlinks": true,
-			"name": "Server source",
-			"path": "server",
-			"folder_exclude_patterns": ["__pycache__"]
-		},
-		{
-			"follow_symlinks": true,
-			"name": "Build scripts",
-			"path": ".",
-			"file_include_patterns": ["Cargo.*"],
-			"folder_exclude_patterns": ["*"]
-		},
+			"path": "format-ci"
+		}
 	],
 	"settings":
 	{
