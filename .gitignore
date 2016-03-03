@@ -4,6 +4,8 @@
 !LICENSE
 !README.md
 !requirements.txt
+!runtime.txt
+!Procfile*
 !*.sublime-project
 !format-ci
 !format-ci/**

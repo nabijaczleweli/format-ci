@@ -13,6 +13,17 @@
 			"follow_symlinks": true,
 			"name": "CI source",
 			"path": "format-ci"
+		},
+		{
+			"follow_symlinks": true,
+			"name": "Environment config",
+			"path": ".",
+			"folder_exclude_patterns": ["*"],
+			"file_include_patterns": [
+				"Procfile*",
+				"runtime.txt",
+				"requirements.txt"
+			]
 		}
 	],
 	"settings":

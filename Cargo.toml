@@ -1,9 +1,0 @@
-[package]
-name = "format-ci"
-description = "A CI server for verification of autoformatting adherence"
-repository = "https://github.com/nabijaczleweli/format-ci"
-readme = "README.md"
-keywords = ["ci"]
-license = "MIT"
-version = "0.1.0"
-authors = ["nabijaczleweli <nabijaczleweli@gmail.com>"]
