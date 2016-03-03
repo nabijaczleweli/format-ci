@@ -3,8 +3,13 @@
 	[
 		{
 			"working_dir": "$project_path",
-			"shell_cmd": "cargo build --color always && python server",
+			"shell_cmd": "python3 format-ci",
 			"name": "Run format-ci"
+		},
+		{
+			"working_dir": "$project_path",
+			"shell_cmd": "pip install -r requirements.txt",
+			"name": "Install format-ci's dependencies"
 		}
 	],
 	"folders":

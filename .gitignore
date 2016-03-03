@@ -9,3 +9,4 @@
 !*.sublime-project
 !format-ci
 !format-ci/**
+__pycache__
