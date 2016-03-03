@@ -17,7 +17,8 @@
 		{
 			"follow_symlinks": true,
 			"name": "CI source",
-			"path": "format-ci"
+			"path": "format-ci",
+			"folder_exclude_patterns": ["__pycache__"]
 		},
 		{
 			"follow_symlinks": true,
