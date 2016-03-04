@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='style.css') }}" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="author" content="nabijaczleweli">
+	<meta name="description" content="A CI server for verification of autoformatting adherence">
+	<title>format-ci {% block title %}{% endblock %}</title>
+</head>
+<body lang="en-BR">
+	<div class="projects">
+		{{ display.cook_html(data.projects()) }}
+	</div>
+	{% block body %}{% endblock %}
+</body>
+</html>

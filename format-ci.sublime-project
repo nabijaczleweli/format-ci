@@ -2,23 +2,32 @@
 	"build_systems":
 	[
 		{
-			"working_dir": "$project_path",
+			"name": "Run format-ci",
 			"shell_cmd": "python3 format-ci",
-			"name": "Run format-ci"
+			"working_dir": "$project_path"
 		},
 		{
-			"working_dir": "$project_path",
+			"name": "Install format-ci's dependencies",
 			"shell_cmd": "pip install -r requirements.txt",
-			"name": "Install format-ci's dependencies"
+			"working_dir": "$project_path"
+		},
+		{
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "Anaconda Python Builder",
+			"selector": "source.python",
+			"shell_cmd": "\"python3.exe\" -u \"$file\""
 		}
 	],
 	"folders":
 	[
 		{
+			"folder_exclude_patterns":
+			[
+				"__pycache__"
+			],
 			"follow_symlinks": true,
 			"name": "CI source",
-			"path": "format-ci",
-			"folder_exclude_patterns": ["__pycache__"]
+			"path": "format-ci"
 		},
 		{
 			"follow_symlinks": true,
@@ -26,15 +35,19 @@
 			"path": "assets"
 		},
 		{
-			"follow_symlinks": true,
-			"name": "Environment config",
-			"path": ".",
-			"folder_exclude_patterns": ["*"],
-			"file_include_patterns": [
+			"file_include_patterns":
+			[
 				"Procfile*",
 				"runtime.txt",
 				"requirements.txt"
-			]
+			],
+			"folder_exclude_patterns":
+			[
+				"*"
+			],
+			"follow_symlinks": true,
+			"name": "Environment config",
+			"path": "."
 		}
 	],
 	"settings":
