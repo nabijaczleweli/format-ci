@@ -9,4 +9,6 @@
 !*.sublime-project
 !format-ci
 !format-ci/**
+!assets
+!assets/**
 __pycache__

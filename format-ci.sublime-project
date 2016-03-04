@@ -22,6 +22,11 @@
 		},
 		{
 			"follow_symlinks": true,
+			"name": "CI assets",
+			"path": "assets"
+		},
+		{
+			"follow_symlinks": true,
 			"name": "Environment config",
 			"path": ".",
 			"folder_exclude_patterns": ["*"],
