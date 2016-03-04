@@ -8,11 +8,6 @@ import sqlite3
 DATABASE = "format-ci.db"
 
 
-class Project:
-	def __init__(self, ):
-		self.arg = arg
-
-
 def get_db():
 	db = getattr(g, "_database", None)
 	if db is None:
@@ -30,16 +25,31 @@ def _init_db(db):
 	c.execute('''SELECT * FROM sqlite_master WHERE name="repositories" and type="table";''')
 	if c.fetchone() is None:
 		c.execute('''CREATE TABLE repositories(
-		              	username TEXT,
-		              	repo_name TEXT,
-		              	passed BOOLEAN,
-		              	job_amount UNSIGNED INTEGER,
-		              	CHECK (job_amount > 0)
+		            	ID INTEGER PRIMARY KEY,
+		             	username TEXT,
+		             	repo_name TEXT,
+		             	passed BOOLEAN,
+		             	job_amount UNSIGNED INTEGER,
+		             	job_ids TEXT,
+		             	CHECK (job_amount > 0)
 		          );''')
-		db.commit()
-		c.close()
+	c.execute('''SELECT * FROM sqlite_master WHERE name="jobs" and type="table";''')
+	if c.fetchone() is None:
+		c.execute('''CREATE TABLE jobs(
+		            	ID INTEGER PRIMARY KEY,
+		             	passed BOOLEAN,
+		             	repo_id INTEGER,
+		             	start_time UNSIGNED INTEGER,
+		             	duration UNSIGNED INTEGER,
+		             	commit_id TEXT,
+		             	CHECK (duration > 0)
+		          );''')
+	db.commit()
+	c.close()
 
 
 def projects():
-	get_db()
-	return []
+	c = get_db().cursor()
+	toret = list(c.execute('''SELECT repositories.username,repositories.repo_name,repositories.passed,repositories.job_amount FROM repositories'''))
+	c.close()
+	return toret

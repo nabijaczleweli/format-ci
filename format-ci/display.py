@@ -2,5 +2,7 @@
 
 
 def cook_html(projects):
+	toret = ""
 	for project in projects:
-		print(project)
+		toret += project.__str__();
+	return toret
