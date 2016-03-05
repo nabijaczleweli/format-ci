@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 
-from flask import Flask, url_for, render_template
+from flask import Flask, render_template
 import os
 
 import display

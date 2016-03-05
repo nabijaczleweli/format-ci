@@ -2,3 +2,50 @@ html {
 	background-color: #555;
 	color: #BBB;
 }
+
+#main {
+  width: 85%;
+  margin: 0 auto;
+  float: right;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: 15%;
+}
+
+
+.repo_build_result {
+	font-weight: bold;
+}
+
+.repo_build_pass {
+	color: #008033;
+}
+
+.repo_build_fail {
+	color: #ff3000;
+}
+
+.repo_build_pass > span.repo_slug_link > :link,
+.repo_build_pass > a.repo_job_id:link {
+	text-decoration: none;
+	color: #008033;
+}
+
+.repo_build_fail > span.repo_slug_link > :link,
+.repo_build_fail > a.repo_job_id:link,
+.repo_build_fail > a.repo_job_id > :link {
+	text-decoration: none;
+	color: #ff3000;
+}
+
+.repo_job_id {
+	margin-left: 4%;
+}
+
+.repo_job_id_hash {
+	color: #A0A0A0;
+}

@@ -50,6 +50,7 @@ def _init_db(db):
 
 def projects():
 	c = get_db().cursor()
-	toret = list(c.execute('''SELECT repositories.username,repositories.repo_name,repositories.passed,repositories.job_amount FROM repositories'''))
+	toret = list(c.execute('''SELECT repositories.username,repositories.repo_name,repositories.passed,repositories.job_amount,repositories.job_ids
+	                          	FROM repositories;'''))
 	c.close()
 	return toret

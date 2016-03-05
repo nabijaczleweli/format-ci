@@ -1,6 +1,10 @@
 <div class="repo_box {% if repo_passed %} repo_build_pass {% else %} repo_build_fail {% endif %}" id="repo_{{ repo_owner + '_' + repo_name }}">
-	<div class="repo_slug_link"><a href="{{ url_for('home') }}/{{ repo_owner }}/{{ repo_name }}">
+	<span class="repo_slug_link"><a href="{{ url_for('home') }}/{{ repo_owner }}/{{ repo_name }}">
 		{% if repo_passed %} ✔ {% else %} ✖ {% endif %}
 		{{ repo_owner }}/{{ repo_name }}
-	</a></div>
+	</a></span>
+	<a class="repo_job_id" href="{{ url_for('home') }}/jobs/{{ last_job_id }}">
+		<i class="repo_job_id_hash">#</i>
+		{{ repo_job_amount }}
+	</a>
 </div>
