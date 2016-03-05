@@ -11,7 +11,7 @@
 <body lang="en-BR">
 	<div id="main">
 		<div class="sidebar">
-			{{ display.cook_html(data.projects())|safe }}
+			{{ display.cook_projects_html(data.projects())|safe }}
 		</div>
 		<div class="body">
 			{% block body %}{% endblock %}
