@@ -29,15 +29,16 @@ html {
 	color: #ff3000;
 }
 
-.repo_build_pass > span.repo_slug_link > :link,
-.repo_build_pass > a.repo_job_id:link {
+.repo_build_pass > span.repo_slug_link > :link, .repo_build_pass > span.repo_slug_link > :visited,
+.repo_build_pass > a.repo_job_id:link, .repo_build_pass > a.repo_job_id:visited,
+.repo_build_pass > a.repo_job_id > :link, .repo_build_pass > a.repo_job_id > :visited {
 	text-decoration: none;
 	color: #008033;
 }
 
-.repo_build_fail > span.repo_slug_link > :link,
-.repo_build_fail > a.repo_job_id:link,
-.repo_build_fail > a.repo_job_id > :link {
+.repo_build_fail > span.repo_slug_link > :link, .repo_build_fail > span.repo_slug_link > :visited,
+.repo_build_fail > a.repo_job_id:link, .repo_build_fail > a.repo_job_id:visited,
+.repo_build_fail > a.repo_job_id > :link, .repo_build_fail > a.repo_job_id > :visited {
 	text-decoration: none;
 	color: #ff3000;
 }
