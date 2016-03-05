@@ -9,9 +9,13 @@
 	<title>format-ci {% block title %}{% endblock %}</title>
 </head>
 <body lang="en-BR">
-	<div class="projects">
-		{{ display.cook_html(data.projects()) }}
+	<div id="main">
+		<div class="sidebar">
+			{{ display.cook_html(data.projects())|safe }}
+		</div>
+		<div class="body">
+			{% block body %}{% endblock %}
+		</div>
 	</div>
-	{% block body %}{% endblock %}
 </body>
 </html>
