@@ -2,16 +2,21 @@
 
 
 from flask import g
+import os
 import sqlite3
 
 
-DATABASE = "format-ci.db"
+DATABASE = "data/format-ci.db"
 
 
 def get_db():
 	db = getattr(g, "_database", None)
 	if db is None:
-		db = g._database = sqlite3.connect(DATABASE)
+		try:
+			db = g._database = sqlite3.connect(DATABASE)
+		except sqlite3.OperationalError:
+			os.mkdir(os.path.dirname(DATABASE))
+			return get_db()
 		_init_db(db)
 	return db
 
