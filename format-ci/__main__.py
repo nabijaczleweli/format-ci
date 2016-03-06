@@ -25,7 +25,7 @@ def show_job(id):
 
 @app.route("/github_callback", methods=["POST"])
 def receive_github_request():
-	gh.handle_request(request.get_json())
+	gh.handle_request(request.get_json(), app)
 	return ""
 
 

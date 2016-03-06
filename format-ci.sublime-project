@@ -37,8 +37,6 @@
 		{
 			"file_include_patterns":
 			[
-				"Procfile*",
-				"runtime.txt",
 				"requirements.txt"
 			],
 			"folder_exclude_patterns":

@@ -49,6 +49,12 @@ def _init_db(db):
 		             	commit_id TEXT,
 		             	CHECK (duration > 0)
 		          );''')
+	c.execute('''SELECT * FROM sqlite_master WHERE name="job_logs" and type="table";''')
+	if c.fetchone() is None:
+		c.execute('''CREATE TABLE job_logs(
+		            	ID INTEGER,
+		             	log TEXT
+		          );''')
 	db.commit()
 	c.close()
 
@@ -61,10 +67,23 @@ def projects():
 	return toret
 
 def project_from_job_id(job_id):
-	import sys
 	c = get_db().cursor()
 	c.execute('''SELECT jobs.repo_id FROM jobs WHERE jobs.ID is ?;''', (job_id,))
 	c.execute('''SELECT * FROM repositories WHERE repositories.ID is ?;''', c.fetchone())
 	repo = c.fetchone()
 	c.close()
 	return repo
+
+def add_logs(job_id, log):
+	db = get_db()
+	c = db.cursor()
+	c.execute('''INSERT INTO job_logs VALUES (?,?);''', (job_id, log))
+	db.commit()
+	c.close()
+
+def max_job_id():
+	c = get_db().cursor()
+	c.execute('''SELECT MAX(ID) from jobs;''')
+	result = c.fetchone()
+	c.close()
+	return int(result[0])
