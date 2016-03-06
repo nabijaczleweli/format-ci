@@ -35,10 +35,8 @@ def close_db_connection(exception):
 
 
 if __name__ == "__main__":
-	if os.getenv("GH_CLIENT_ID") is None:
-		sys.stderr.write("Environment variable GH_CLIENT_ID not set. Set it to the developer application ID.\n")
+	if os.getenv("GH_TOKEN") is None:
+		sys.stderr.write("Environment variable GH_TOKEN not set. Set it to the OAuth token format-ci should be using.\n")
 		sys.exit(1)
-	if os.getenv("GH_CLIENT_SECRET") is None:
-		sys.stderr.write("Environment variable GH_CLIENT_SECRET not set. Set it to the developer application's secret.\n")
-		sys.exit(1)
+
 	app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
