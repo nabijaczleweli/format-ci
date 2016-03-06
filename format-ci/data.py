@@ -39,7 +39,7 @@ def _init_db(db):
 		            	ID INTEGER PRIMARY KEY,
 		             	passed BOOLEAN,
 		             	repo_id INTEGER,
-		             	start_time UNSIGNED INTEGER,
+		             	start_time TEXT,
 		             	duration UNSIGNED INTEGER,
 		             	commit_id TEXT,
 		             	CHECK (duration > 0)
@@ -54,3 +54,12 @@ def projects():
 	                          	FROM repositories;'''))
 	c.close()
 	return toret
+
+def project_from_job_id(job_id):
+	import sys
+	c = get_db().cursor()
+	c.execute('''SELECT jobs.repo_id FROM jobs WHERE jobs.ID is ?;''', (job_id,))
+	c.execute('''SELECT * FROM repositories WHERE repositories.ID is ?;''', c.fetchone())
+	repo = c.fetchone()
+	c.close()
+	return repo

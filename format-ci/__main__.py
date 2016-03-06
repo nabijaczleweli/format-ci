@@ -15,6 +15,11 @@ app = Flask(__name__, template_folder="../assets/templates", static_folder="../a
 def home():
 	return render_template("home.html", display=display, data=data)
 
+@app.route("/job/<id>")
+def job(id):
+	project = data.project_from_job_id(id)
+	return render_template("job.html", display=display, data=data, job_id=id, project_owner=project[1], project_name=project[2])
+
 
 @app.teardown_appcontext
 def close_db_connection(exception):
