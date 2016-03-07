@@ -29,14 +29,18 @@ def handle_request(request_json, app):
 def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):
 	clone_dir = "data/clones/{}/{}".format(repo_slug, commit_id)
 
-	subprocess.run("git clone {} {}".format(gh_repo.clone_url, clone_dir), shell=True)
-	subprocess.run("cd {} && git reset --hard".format(clone_dir), shell=True)
+	log = ""
+	for command in [
+		"git clone {} {}".format(gh_repo.clone_url, clone_dir),
+		"cd {} && git reset --hard {}".format(clone_dir, commit_id)
+	]:
+		log += command + "\n" + subprocess.run(command, shell=True, stdout=subprocess.PIPE).stdout + "\n"
+	log += "\n\n"
 
 	if not os.path.exists(clone_dir + "/format-cieck"):
 		gh_commit.create_status("error", description="Couldn't find format-cieck file", context="continuous-integration/format-ci")
 		return 1
 
-	log = ""
 	failed_lines = 0
 	with open(clone_dir + "/format-cieck") as fc:
 		for line in fc:
@@ -48,7 +52,6 @@ def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):
 				++failed_lines
 	with app.app_context():
 		data.add_logs(job_id, log)
-	print(log)
 
 	if failed_lines is 0:
 		gh_commit.create_status("success", description="Everything is formatted according to plan", context="continuous-integration/format-ci")
