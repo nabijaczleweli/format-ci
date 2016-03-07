@@ -2,9 +2,8 @@
 
 
 from github import Github
-from multiprocessing import Process
 import subprocess
-import sys
+import datetime
 import os
 
 import data
@@ -15,13 +14,17 @@ gh = Github(os.getenv("GH_TOKEN"))
 
 def handle_request(request_json, app):
 	gh_repo = gh.get_repo(request_json["repository"]["full_name"])
-	clone_url = gh_repo.clone_url
 	gh_commit = gh_repo.get_commit(request_json["after"])
 	gh_commit.create_status("pending", context="continuous-integration/format-ci")
 
 	this_job_id = data.max_job_id() + 1
 
-	build(request_json["repository"]["full_name"], request_json["after"], gh_repo, gh_commit, this_job_id, app)
+	start_time = datetime.datetime.utcnow().timestamp()
+	success = not build(request_json["repository"]["full_name"], request_json["after"], gh_repo, gh_commit, this_job_id, app)
+	end_time = datetime.datetime.utcnow().timestamp()
+	repo_id = data.update_repo_job_ids(request_json["repository"]["owner"]["name"], request_json["repository"]["name"], success, this_job_id)
+	data.add_job(this_job_id, repo_id, success, start_time, end_time - start_time, request_json["after"])
+
 
 def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):
 	clone_dir = "data/clones/{}/{}".format(repo_slug, commit_id)

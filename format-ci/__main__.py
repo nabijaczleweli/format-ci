@@ -4,7 +4,6 @@
 from flask import Flask, render_template, request
 import os
 import sys
-import json
 
 import display
 import data
