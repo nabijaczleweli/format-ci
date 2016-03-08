@@ -3,7 +3,7 @@
 		{% if repo_passed %} ✔ {% else %} ✖ {% endif %}
 		{{ repo_owner }}/{{ repo_name }}
 	</a></span>
-	<a class="repo_job_id" href="{{ url_for('home') }}jobs/{{ last_job_id }}">
+	<a class="repo_job_id" href="{{ url_for('home') }}job/{{ last_job_id }}">
 		<i class="repo_job_id_hash">#</i>
 		{{ repo_job_amount }}
 	</a>

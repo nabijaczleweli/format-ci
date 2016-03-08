@@ -5,6 +5,7 @@ from github import Github
 import subprocess
 import datetime
 import os
+import io
 
 import data
 
@@ -34,26 +35,25 @@ def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):
 		"git clone {} {}".format(gh_repo.clone_url, clone_dir),
 		"cd {} && git reset --hard {}".format(clone_dir, commit_id)
 	]:
-		log += command + "\n" + subprocess.run(command, shell=True, stdout=subprocess.PIPE).stdout + "\n"
+		log += command + "\n" + subprocess.run(command, universal_newlines=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout + "\n"
 	log += "\n\n"
 
 	if not os.path.exists(clone_dir + "/format-cieck"):
 		gh_commit.create_status("error", description="Couldn't find format-cieck file", context="continuous-integration/format-ci")
 		return 1
 
-	failed_lines = 0
-	with open(clone_dir + "/format-cieck") as fc:
-		for line in fc:
-			result = subprocess.run("cd {} && {}".format(clone_dir, line), shell=True, universal_newlines=True, stdout=subprocess.PIPE)
-			log += "\n" + line + result.stdout
-			if result.returncode is not 0:
-				gh_commit.create_status("error", description="{} command failed with {} exit code".format(line, result.returncode),
-				                                 context="continuous-integration/format-ci")
-				++failed_lines
+	format_result = subprocess.run("bash", input="""cd {}
+set -e
+set -v
+. format-cieck""".format(clone_dir), universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	log += format_result.stdout + "\n" + format_result.stderr
 	with app.app_context():
 		data.add_logs(job_id, log)
 
-	if failed_lines is 0:
+	if format_result.returncode is 0:
 		gh_commit.create_status("success", description="Everything is formatted according to plan", context="continuous-integration/format-ci")
+	else:
+		gh_commit.create_status("error", description="Format checking failed with {} exit code".format(format_result.returncode),
+		                        context="continuous-integration/format-ci")
 
-	return failed_lines
+	return format_result.returncode
