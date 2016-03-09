@@ -7,5 +7,10 @@
 {% block body %}
 	<h1><a href="https://github.com/{{ project_owner }}">{{ project_owner }}</a> <b>/</b> <a href="https://github.com/{{ project_owner }}/{{ project_name }}">{{ project_name }}</a></h1>
 
-	{# #}
+	<div>
+		<a href="https://github.com/{{ project_owner }}/{{ project_name }}"><span class="octicon octicon-mark-github"></span> Commit {{ new_commit }}</a><br />
+		<a href="https://github.com/{{ project_owner }}/{{ project_name }}/compare/{{ old_commit }}...{{ new_commit }}"><span class="octicon octicon-mark-github"></span> Compare {{ old_commit }}..{{ new_commit }}</a>
+	</div>
+
+	{{ display.cook_job_log(data.job_log(job_id))|safe }}
 {% endblock %}

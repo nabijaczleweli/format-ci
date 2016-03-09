@@ -17,10 +17,12 @@ app = Flask(__name__, template_folder="../assets/templates", static_folder="../a
 def home():
 	return render_template("home.html", display=display, data=data)
 
-@app.route("/job/<int:id>")
+@app.route("/job/<id>")
 def show_job(id):
 	project = data.project_from_job_id(id)
-	return render_template("job.html", display=display, data=data, job_id=id, project_owner=project[1], project_name=project[2])
+	job = data.job(id)
+	return render_template("job.html", display=display, data=data, job_id=id, project_owner=project[1], project_name=project[2],
+	                       new_commit=job[5], old_commit=job[6])
 
 @app.route("/github_callback", methods=["POST"])
 def receive_github_request():

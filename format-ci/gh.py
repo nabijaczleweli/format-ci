@@ -26,7 +26,7 @@ def handle_request(request_json, app):
 	success = not build(request_json["repository"]["full_name"], request_json["after"], gh_repo, gh_commit, this_job_id, app)
 	end_time = datetime.datetime.utcnow().timestamp()
 	repo_id = data.update_repo_job_ids(request_json["repository"]["owner"]["name"], request_json["repository"]["name"], success, this_job_id)
-	data.add_job(this_job_id, repo_id, success, start_time, end_time - start_time, request_json["after"])
+	data.add_job(this_job_id, repo_id, success, start_time, end_time - start_time, request_json["after"], request_json["before"])
 
 
 def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):

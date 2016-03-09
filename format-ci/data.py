@@ -47,6 +47,7 @@ def _init_db(db):
 		             	start_time TEXT,
 		             	duration INTEGER,
 		             	commit_id TEXT,
+		             	prev_commit_id TEXT,
 		             	CHECK (duration > 0)
 		          );''')
 	c.execute('''SELECT * FROM sqlite_master WHERE name="job_logs" and type="table";''')
@@ -63,6 +64,18 @@ def projects():
 	c = get_db().cursor()
 	toret = list(c.execute('''SELECT repositories.username,repositories.repo_name,repositories.passed,repositories.job_amount,repositories.job_ids
 	                          	FROM repositories;'''))
+	c.close()
+	return toret
+
+def job_log(job_id):
+	c = get_db().cursor()
+	toret = c.execute('''SELECT job_logs.log FROM job_logs WHERE job_logs.ID IS ?;''', (job_id,)).fetchone()
+	c.close()
+	return toret
+
+def job(job_id):
+	c = get_db().cursor()
+	toret = c.execute('''SELECT * FROM jobs WHERE jobs.ID IS ?;''', (job_id,)).fetchone()
 	c.close()
 	return toret
 
@@ -107,12 +120,13 @@ def update_repo_job_ids(owner, rname, passed, current_job_id):
 	c.close()
 	return repo_id
 
-def add_job(job_id, repo_id, passed, start_time, elapsed_time, commit_id):
+def add_job(job_id, repo_id, passed, start_time, elapsed_time, commit_id, old_commit_id):
 	db = get_db()
 	c = db.cursor()
-	c.execute('''INSERT INTO jobs VALUES (?,?,?,datetime(?),?,?);''', (job_id, passed, repo_id, start_time, elapsed_time, commit_id))
+	c.execute('''INSERT INTO jobs VALUES (?,?,?,datetime(?),?,?,?);''', (job_id, passed, repo_id, start_time, elapsed_time, commit_id, old_commit_id))
 	db.commit()
 	c.close()
+
 
 def _get_repo_id_jobs(c, owner, rname):
 	c.execute('''SELECT repositories.ID,repositories.job_ids FROM repositories

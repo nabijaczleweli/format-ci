@@ -2,7 +2,19 @@ h1 {
 	color: #A0A0A0;
 }
 
-h1 > a:link, h1 > a:visited {
+h1 > a:link, h1 > a:visited,
+div > a:link, div > a:visited {
 	color: #A0A0A0;
 	text-decoration: none;
+}
+
+div > a:link > span.octicon, div > a:visited > span.octicon {
+	color: white;
+}
+
+pre {
+	color: white;
+	background-color: black;
+	border-radius: 4px;
+	margin-right: 1em;
 }
