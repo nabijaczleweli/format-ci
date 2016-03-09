@@ -94,7 +94,8 @@ def update_repo_job_ids(owner, rname, passed, current_job_id):
 
 	id_jobs = _get_repo_id_jobs(c, owner, rname)
 	if id_jobs is not None:
-		c.execute('''UPDATE repositories SET job_ids=?,passed=? WHERE ID=?;''', (str(id_jobs[1] + [current_job_id]), passed, id_jobs[0]))
+		job_ids = id_jobs[1] + [current_job_id]
+		c.execute('''UPDATE repositories SET job_ids=?,passed=?,job_amount=? WHERE ID=?;''', (str(job_ids), passed, len(job_ids), id_jobs[0]))
 		db.commit()
 		c.close()
 		return id_jobs[0]

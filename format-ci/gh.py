@@ -5,7 +5,6 @@ from github import Github
 import subprocess
 import datetime
 import os
-import io
 
 import data
 
@@ -14,6 +13,9 @@ gh = Github(os.getenv("GH_TOKEN"))
 
 
 def handle_request(request_json, app):
+	if "commits" not in request_json:  # Top-level "commits" only in https://developer.github.com/v3/activity/events/types/#pushevent
+		return
+
 	gh_repo = gh.get_repo(request_json["repository"]["full_name"])
 	gh_commit = gh_repo.get_commit(request_json["after"])
 	gh_commit.create_status("pending", context="continuous-integration/format-ci")
@@ -36,16 +38,15 @@ def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):
 		"cd {} && git reset --hard {}".format(clone_dir, commit_id)
 	]:
 		log += command + "\n" + subprocess.run(command, universal_newlines=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout + "\n"
-	log += "\n\n"
 
-	if not os.path.exists(clone_dir + "/format-cieck"):
-		gh_commit.create_status("error", description="Couldn't find format-cieck file", context="continuous-integration/format-ci")
+	if not os.path.exists(clone_dir + "/.format-cieck"):
+		gh_commit.create_status("error", description="Couldn't find .format-cieck file", context="continuous-integration/format-ci")
 		return 1
 
 	format_result = subprocess.run("bash", input="""cd {}
 set -e
 set -v
-. format-cieck""".format(clone_dir), universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+{}""".format(clone_dir, _read_whole_file(clone_dir + "/.format-cieck")), universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	log += format_result.stdout + "\n" + format_result.stderr
 	with app.app_context():
 		data.add_logs(job_id, log)
@@ -57,3 +58,7 @@ set -v
 		                        context="continuous-integration/format-ci")
 
 	return format_result.returncode
+
+def _read_whole_file(path):
+	with open(path) as f:
+		return f.read()
