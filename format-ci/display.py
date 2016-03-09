@@ -10,6 +10,6 @@ def cook_projects_html(projects):
 
 def cook_job_log(job):
 	if job is not None:
-		return "<pre>" + job[0] + "</pre>"
+		return "<pre>" + job[0].replace("<", "&lt;").replace(">", "&gt;") + "</pre>"
 	else:
 		return ""
