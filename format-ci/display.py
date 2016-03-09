@@ -2,6 +2,7 @@
 
 
 from flask import render_template
+import jinja2
 
 
 def cook_projects_html(projects):
@@ -10,6 +11,6 @@ def cook_projects_html(projects):
 
 def cook_job_log(job):
 	if job is not None:
-		return "<pre>" + job[0].replace("<", "&lt;").replace(">", "&gt;") + "</pre>"
+		return "<pre>" + jinja2.escape(job[0]) + "</pre>"
 	else:
 		return ""
