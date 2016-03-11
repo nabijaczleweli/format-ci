@@ -17,28 +17,28 @@ html {
 }
 
 
-.repo_build_result {
+.build_result {
 	font-weight: bold;
 }
 
-.repo_build_pass {
+.build_pass {
 	color: #008033;
 }
 
-.repo_build_fail {
+.build_fail {
 	color: #ff3000;
 }
 
-.repo_build_pass > span.repo_slug_link > :link, .repo_build_pass > span.repo_slug_link > :visited,
-.repo_build_pass > a.repo_job_id:link, .repo_build_pass > a.repo_job_id:visited,
-.repo_build_pass > a.repo_job_id > :link, .repo_build_pass > a.repo_job_id > :visited {
+.build_pass > span.job_slug_link > :link, .build_pass > span.job_slug_link > :visited,
+.build_pass > a.repo_job_id:link, .build_pass > a.repo_job_id:visited,
+.build_pass > a.repo_job_id > :link, .build_pass > a.repo_job_id > :visited {
 	text-decoration: none;
 	color: #008033;
 }
 
-.repo_build_fail > span.repo_slug_link > :link, .repo_build_fail > span.repo_slug_link > :visited,
-.repo_build_fail > a.repo_job_id:link, .repo_build_fail > a.repo_job_id:visited,
-.repo_build_fail > a.repo_job_id > :link, .repo_build_fail > a.repo_job_id > :visited {
+.build_fail > span.job_slug_link > :link, .build_fail > span.job_slug_link > :visited,
+.build_fail > a.repo_job_id:link, .build_fail > a.repo_job_id:visited,
+.build_fail > a.repo_job_id > :link, .build_fail > a.po_job_id > :visited {
 	text-decoration: none;
 	color: #ff3000;
 }

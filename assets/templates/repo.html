@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} — {{ username }}/{{ reponame }} {% endblock %}
+{% block head %}
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='with_header.css') }}" />
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='repo.css') }}" />
+	<link rel="stylesheet" type=text/css href="https://octicons.github.com/components/octicons/octicons/octicons.css" />
+{% endblock %}
+{% block body %}
+	<h1><a href="/{{ username }}">{{ username }}</a> <b>/</b> <a href="/{{ username }}/{{ reponame }}">{{ reponame }}</a> <a href="https://github.com/{{ username }}/{{ reponame }}"><span class="mega-octicon octicon-mark-github"></span></a></h1>
+
+	{{ display.cook_repo(data.repo_from_slug(username, reponame))|safe }}
+{% endblock %}

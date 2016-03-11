@@ -27,7 +27,7 @@ def close_db_connection(exception):
 
 def _init_db(db):
 	c = db.cursor()
-	c.execute('''SELECT * FROM sqlite_master WHERE name="repositories" and type="table";''')
+	c.execute('''SELECT * FROM sqlite_master WHERE name="repositories" AND type="table";''')
 	if c.fetchone() is None:
 		c.execute('''CREATE TABLE repositories(
 		            	ID INTEGER PRIMARY KEY,
@@ -38,7 +38,7 @@ def _init_db(db):
 		             	job_ids TEXT,
 		             	CHECK (job_amount > 0)
 		          );''')
-	c.execute('''SELECT * FROM sqlite_master WHERE name="jobs" and type="table";''')
+	c.execute('''SELECT * FROM sqlite_master WHERE name="jobs" AND type="table";''')
 	if c.fetchone() is None:
 		c.execute('''CREATE TABLE jobs(
 		            	ID INTEGER PRIMARY KEY,
@@ -50,7 +50,7 @@ def _init_db(db):
 		             	prev_commit_id TEXT,
 		             	CHECK (duration > 0)
 		          );''')
-	c.execute('''SELECT * FROM sqlite_master WHERE name="job_logs" and type="table";''')
+	c.execute('''SELECT * FROM sqlite_master WHERE name="job_logs" AND type="table";''')
 	if c.fetchone() is None:
 		c.execute('''CREATE TABLE job_logs(
 		            	ID INTEGER,
@@ -76,6 +76,13 @@ def job_log(job_id):
 def job(job_id):
 	c = get_db().cursor()
 	toret = c.execute('''SELECT * FROM jobs WHERE jobs.ID IS ?;''', (job_id,)).fetchone()
+	c.close()
+	return toret
+
+def repo_from_slug(username, reponame):
+	c = get_db().cursor()
+	toret = c.execute('''SELECT repositories.username,repositories.repo_name,repositories.job_ids
+	                     	FROM repositories WHERE repositories.username IS ? AND repositories.repo_name IS ?;''', (username, reponame)).fetchone()
 	c.close()
 	return toret
 

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block title %} — {{ project_owner }}/{{ project_name }} {% endblock %}
 {% block head %}
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='with_header.css') }}" />
 	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='job.css') }}" />
 	<link rel="stylesheet" type=text/css href="https://octicons.github.com/components/octicons/octicons/octicons.css" />
 {% endblock %}
 {% block body %}
-	<h1><a href="https://github.com/{{ project_owner }}">{{ project_owner }}</a> <b>/</b> <a href="https://github.com/{{ project_owner }}/{{ project_name }}">{{ project_name }}</a></h1>
+	<h1><a href="/{{ project_owner }}">{{ project_owner }}</a> <b>/</b> <a href="/{{ project_owner }}/{{ project_name }}">{{ project_name }}</a> <a href="https://github.com/{{ project_owner }}/{{ project_name }}"><span class="mega-octicon octicon-mark-github"></span></a></h1>
 
 	<div>
 		<a href="https://github.com/{{ project_owner }}/{{ project_name }}"><span class="octicon octicon-mark-github"></span> Commit {{ new_commit }}</a><br />

@@ -17,6 +17,10 @@ app = Flask(__name__, template_folder="../assets/templates", static_folder="../a
 def home():
 	return render_template("home.html", display=display, data=data)
 
+@app.route("/<username>/<reponame>")
+def repo(username, reponame):
+	return render_template("repo.html", display=display, data=data, username=username, reponame=reponame)
+
 @app.route("/job/<int:id>")
 def show_job(id):
 	project = data.project_from_job_id(id)
