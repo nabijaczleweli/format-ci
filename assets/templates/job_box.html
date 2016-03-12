@@ -1,7 +1,7 @@
 <div class="job_box {% if job_passed %} build_pass {% else %} build_fail {% endif %} repo_job" id="job_{{ job_id }}">
 	<span class="job_slug_link"><a href="{{ url_for('home') }}{{ repo_owner }}/{{ repo_name }}">
 		&nbsp; {% if job_passed %} ✔ {% else %} ✖ {% endif %}
-		{{ repo_owner }}/{{ repo_name }} &nbsp; <i class="repo_job_id_hash">#</i> {{ job_id }}
-	</a></span>
+		{{ repo_owner }}/{{ repo_name }} &nbsp;
+	</a><a href="/job/{{ job_id }}"><i class="repo_job_id_hash">#</i> {{ job_id }}</a></span>
 	<code class="job_commit_hash"><a href="https://github.com/{{ repo_owner }}/{{ repo_name }}/commit/{{ job_commit_hash }}">{{ job_commit_hash }}</a></code>
 </div>
