@@ -2,8 +2,8 @@
 	"build_systems":
 	[
 		{
-			"name": "Run format-ci",
-			"shell_cmd": "python3 format-ci",
+			"name": "Verify format-ci",
+			"shell_cmd": "pep8 --config=.pep8 --filename=*.py format-ci",
 			"working_dir": "$project_path"
 		},
 		{
@@ -37,7 +37,9 @@
 		{
 			"file_include_patterns":
 			[
-				"requirements.txt"
+				"requirements.txt",
+				".pep8",
+				".format-cieck",
 			],
 			"folder_exclude_patterns":
 			[

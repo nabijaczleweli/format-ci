@@ -1,0 +1,10 @@
+<div class="user_repo {% if repo_passed %} build_pass {% else %} build_fail {% endif %}" id="user_repo_{{ repo_owner + '_' + repo_name }}">
+	<span class="job_slug_link"><a href="/{{ repo_owner }}/{{ repo_name }}">
+		{% if repo_passed %} ✔ {% else %} ✖ {% endif %}
+		{{ repo_owner }}/{{ repo_name }}
+	</a></span>
+	<a class="repo_job_id" href="/job/{{ last_job_id }}">
+		<i class="repo_job_id_hash">#</i>
+		{{ repo_job_amount }}
+	</a>
+</div>

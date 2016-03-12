@@ -86,6 +86,13 @@ def repo_from_slug(username, reponame):
 	c.close()
 	return toret
 
+def repos_from_name(username):
+	c = get_db().cursor()
+	toret = list(c.execute('''SELECT repositories.username,repositories.repo_name,repositories.passed,repositories.job_ids
+	                          	FROM repositories WHERE repositories.username IS ?;''', (username,)))
+	c.close()
+	return toret
+
 def project_from_job_id(job_id):
 	c = get_db().cursor()
 	c.execute('''SELECT jobs.repo_id FROM jobs WHERE jobs.ID IS ?;''', (job_id,))

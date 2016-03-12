@@ -17,6 +17,10 @@ app = Flask(__name__, template_folder="../assets/templates", static_folder="../a
 def home():
 	return render_template("home.html", display=display, data=data)
 
+@app.route("/<username>")
+def user(username):
+	return render_template("user.html", display=display, data=data, username=username)
+
 @app.route("/<username>/<reponame>")
 def repo(username, reponame):
 	return render_template("repo.html", display=display, data=data, username=username, reponame=reponame)
@@ -44,4 +48,4 @@ if __name__ == "__main__":
 		sys.stderr.write("Environment variable GH_TOKEN not set. Set it to the OAuth token format-ci should be using.\n")
 		sys.exit(1)
 
-	app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
+	app.run(host="0.0.0.0", port=int(os.getenv("PORT", "1082")))
