@@ -1,6 +1,8 @@
 *
 !.gitignore
 !.travis.yml
+!.pep8
+!.format-cieck
 !LICENSE
 !README.md
 !requirements.txt
