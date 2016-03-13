@@ -44,7 +44,8 @@ html {
 }
 
 .repo_job_id {
-	margin-left: 4%;
+	margin-right: .4em;
+	float: right;
 }
 
 .repo_job_id_hash {
