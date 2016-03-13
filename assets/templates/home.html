@@ -4,11 +4,29 @@
 	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='home.css') }}" />
 {% endblock %}
 {% block body %}
-	<div id="intro">
+	<div id="intro" class="home_section">
 		<code>format-ci</code> is a CI service with one purpose, and one purpose only: to verify code formatting on GitHub repositories.
 	</div>
-	<div id="howto">
-		To add your project to format-ci add a webhook via repository settings like this:
+	<div id="howto" class="home_section">
+		To add your project to format-ci add this webhook via repository settings:
+		<table>
+			<tr><th>Property</th><th>Value</th></tr>
+			<tr><td>Payload URL</td><td><code>https://47fa328d.ngrok.io/github_callback</code></td></tr>
+			<tr><td>Content type</td><td><code>application/json</code> <small style="float: right;">(default)</small></td></tr>
+			<tr><td>Events</td><td>Just <code>push</code> <small style="float: right;">(default)</small></td></tr>
+		</table><br />
+		Screenshot:<br />
 		<img src="{{ url_for('static', filename='webhook_config_example.png') }}" alt="Webhook configuration screenshot" id="config_ss" />
+		<br />
+		Then add a <code>.format-cieck</code> file containing the steps to verifying the formatting to be interpreted <code>bash</code>, for example:
+		<pre>
+pep8 --config=.pep8 --filename=*.py source                                                       # for Python
+! (clang-format -style=file -output-replacements-xml src/*.* src/**/*.* | grep "&lt;replacement ")  # for C/C++/Obj-C</pre>
+		Commit and push. All relevant entries will be automatically added.<br />
+		The script is run from the freshly-cloned copy of the repository on a common environment, so please don't modify any directories other than the current one.<br />
+		If any commands finish with a non-zero exit status, the build counts as a failure.
+	</div>
+	<div id="whowhere" class="home_section">
+		The project is hosted on <a href="https://github.com/nabijaczleweli/format-ci">GitHub</a>. Please submit all suggestions/bugreports/requests/questions to the <a href="https://github.com/nabijaczleweli/format-ci/issues">issues page</a> thereon.<br />
 	</div>
 {% endblock %}

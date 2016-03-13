@@ -1,3 +1,25 @@
 #config_ss {
 	border-radius: 4px;
 }
+
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 1px solid #777;
+}
+
+div.home_section {
+	margin-bottom: .3em;
+}
+
+#config_ss {
+	width: 50%;
+	height: 50%;
+}
+
+div > a:link, div > a:visited {
+	color: white;
+	text-decoration: none;
+}
