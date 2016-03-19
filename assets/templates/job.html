@@ -8,7 +8,7 @@
 	<h1><a href="/{{ project_owner }}">{{ project_owner }}</a> <b>/</b> <a href="/{{ project_owner }}/{{ project_name }}">{{ project_name }}</a> <a href="https://github.com/{{ project_owner }}/{{ project_name }}"><span class="mega-octicon octicon-mark-github"></span></a></h1>
 
 	<div>
-		<a href="https://github.com/{{ project_owner }}/{{ project_name }}"><span class="octicon octicon-mark-github"></span> Commit {{ new_commit }}</a>	<span class="build_{% if job_passed %}pass{% else %}fail{% endif %}">{% if job_passed %} ✔ {% else %} ✖ {% endif %}</span><br />
+		<a href="https://github.com/{{ project_owner }}/{{ project_name }}/commit/{{ new_commit }}"><span class="octicon octicon-mark-github"></span> Commit {{ new_commit }}</a>	<span class="build_{% if job_passed %}pass{% else %}fail{% endif %}">{% if job_passed %} ✔ {% else %} ✖ {% endif %}</span><br />
 		<a href="https://github.com/{{ project_owner }}/{{ project_name }}/compare/{{ old_commit }}...{{ new_commit }}"><span class="octicon octicon-mark-github"></span> Compare {{ old_commit }}..{{ new_commit }}</a>
 	</div>
 
