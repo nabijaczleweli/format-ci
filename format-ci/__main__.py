@@ -30,7 +30,7 @@ def show_job(id):
 	project = data.project_from_job_id(id)
 	job = data.job(id)
 	return render_template("job.html", display=display, data=data, job_id=id, project_owner=project[1], project_name=project[2],
-	                       new_commit=job[5], old_commit=job[6])
+	                       new_commit=job[5], old_commit=job[6], job_passed=job[1])
 
 @app.route("/github_callback", methods=["POST"])
 def receive_github_request():
