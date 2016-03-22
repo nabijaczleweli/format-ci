@@ -11,7 +11,7 @@
 		To add your project to format-ci add this webhook via repository settings:
 		<table>
 			<tr><th>Property</th><th>Value</th></tr>
-			<tr><td>Payload URL</td><td><code>https://47fa328d.ngrok.io/github_callback</code></td></tr>
+			<tr><td>Payload URL</td><td><code>{{ display.payload_url()|safe }}</code></td></tr>
 			<tr><td>Content type</td><td><code>application/json</code> <small style="float: right;">(default)</small></td></tr>
 			<tr><td>Events</td><td>Just <code>push</code> <small style="float: right;">(default)</small></td></tr>
 		</table><br />

@@ -2,6 +2,7 @@
 
 
 from flask import render_template
+import os
 
 import data
 
@@ -21,6 +22,9 @@ def cook_repo(repo):
 
 def cook_user(repos):
 	return "".join(map(lambda repo: _cook_repo_in_user(repo), repos))
+
+def payload_url():
+	return os.getenv("PAYLOAD_URL") or render_template("default_payload_url.html")
 
 
 def _cook_job_in_repo(job, repo_owner, repo_name):
