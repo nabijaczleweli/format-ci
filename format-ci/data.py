@@ -125,14 +125,14 @@ def update_repo_job_ids(owner, rname, passed, current_job_id):
 		c.execute('''UPDATE repositories SET job_ids=?,passed=?,job_amount=? WHERE ID=?;''', (str(job_ids), passed, len(job_ids), id_jobs[0]))
 		db.commit()
 		c.close()
-		return id_jobs[0]
+		return (id_jobs[0], len(job_ids))
 
 	c.execute('''INSERT INTO repositories VALUES (NULL,?,?,?,?,?);''', (owner, rname, passed, 1, str([current_job_id])))
 	db.commit()
 
 	repo_id = _get_repo_id_jobs(c, owner, rname)[0]
 	c.close()
-	return repo_id
+	return (repo_id, 1)
 
 def add_job(job_id, repo_id, passed, start_time, elapsed_time, commit_id, old_commit_id):
 	db = get_db()

@@ -7,6 +7,7 @@ import datetime
 import os
 
 import data
+import mail
 
 
 gh = Github(os.getenv("GH_TOKEN"))
@@ -25,8 +26,13 @@ def handle_request(request_json, app):
 	start_time = datetime.datetime.utcnow().timestamp()
 	success = not build(request_json["repository"]["full_name"], request_json["after"], gh_repo, gh_commit, this_job_id, app)
 	end_time = datetime.datetime.utcnow().timestamp()
-	repo_id = data.update_repo_job_ids(request_json["repository"]["owner"]["name"], request_json["repository"]["name"], success, this_job_id)
+	repo_id, repo_job_num = data.update_repo_job_ids(request_json["repository"]["owner"]["name"], request_json["repository"]["name"], success, this_job_id)
 	data.add_job(this_job_id, repo_id, success, start_time, end_time - start_time, request_json["after"], request_json["before"])
+
+	if not success:
+		mail.notify(set([request_json["head_commit"]["author"]["email"], request_json["head_commit"]["committer"]["email"],
+		                 request_json["repository"]["owner"]["email"]]),
+		            this_job_id, repo_job_num, request_json["repository"]["full_name"], request_json["after"])
 
 
 def build(repo_slug, commit_id, gh_repo, gh_commit, job_id, app):

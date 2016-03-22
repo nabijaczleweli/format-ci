@@ -47,7 +47,18 @@ if __name__ == "__main__":
 	if os.getenv("GH_TOKEN") is None:
 		sys.stderr.write("Environment variable GH_TOKEN not set. Set it to the OAuth token format-ci should be using.\n")
 		sys.exit(1)
+
+	if os.getenv("OWN_URL") is None:
+		sys.stderr.write("Environment variable OWN_URL not set. Set it to the external URL of this site.\n")
+		sys.exit(1)
+
 	if os.getenv("PAYLOAD_URL") is None:
-		sys.stderr.write("Environment variable PAYLOAD_URL not set. Set it to the URL users are instructed to point their webhooks to. Defaulting to current.\n")
+		sys.stderr.write("Environment variable PAYLOAD_URL not set. Set it to the URL users are instructed to point their webhooks to. "
+		                 "Default: $OWN_URL/github_callback.\n")
+
+	if os.getenv("GMAIL_USERNAME") is None:
+		sys.stderr.write("Environment variable GMAIL_USERNAME not set. Set it to username on GMail. Disabling mail.\n")
+	if os.getenv("GMAIL_PASSWORD") is None:
+		sys.stderr.write("Environment variable GMAIL_PASSWORD not set. Set it to password on GMail. Disabling mail.\n")
 
 	app.run(host="0.0.0.0", port=int(os.getenv("PORT", "1082")))

@@ -24,7 +24,7 @@ def cook_user(repos):
 	return "".join(map(lambda repo: _cook_repo_in_user(repo), repos))
 
 def payload_url():
-	return os.getenv("PAYLOAD_URL") or render_template("default_payload_url.html")
+	return os.getenv("PAYLOAD_URL") or os.getenv("OWN_URL") + "/github_callback"
 
 
 def _cook_job_in_repo(job, repo_owner, repo_name):
